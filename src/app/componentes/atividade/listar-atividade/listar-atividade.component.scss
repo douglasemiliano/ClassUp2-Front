@@ -1,0 +1,46 @@
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .item-circle {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+    border: 7px solid #9b59b6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    margin-bottom: 20px;
+  
+    .item-image {
+      width: 8.8rem;
+      height: 8.8rem;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+  }
+  
+  .btn-floating {
+    position: fixed;
+    bottom: 6rem;
+    right: 2rem;
+    background-color: #ff9800;
+    color: #fff;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+  
+    &:hover {
+      background-color: #e68900;
+    }
+  }
+  

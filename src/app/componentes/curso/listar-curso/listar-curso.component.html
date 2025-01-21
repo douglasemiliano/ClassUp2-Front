@@ -1,0 +1,63 @@
+<!-- <div class="container">
+    <h1 style="text-align: center;">Meus Mundos</h1>
+    <div class="row">
+        @if (this.cursos.length > 0) {
+            @for (curso of this.cursos; track curso.name) {
+                @if(curso.courseState === "ACTIVE"){
+                    <div class="col-md-4 col-12">
+                        <div class="card m-2" (click)="entrarNoCurso(curso)">
+                            <div class="card-header" style="background-image: url(https://i9acao.com.br/wp-content/uploads/2022/03/4-SAIB1.png); background-repeat: no-repeat; background-position: center; background-size: cover; height: 5rem;">
+                            </div>
+                            <div class="card-body p-2 d-flex flex-column">
+                                <span>
+                                <strong style="font-size: larger;">
+                                    {{ curso.name}}
+                                </strong>
+                                    - {{curso.section}}
+                                </span>
+                                {{curso.description}}
+            
+                            </div>
+                        </div>
+                    </div>
+                }
+                }
+        
+        } @else {
+            Nada para exibir
+        }
+        
+
+    </div>
+</div>
+
+ -->
+
+
+<div class="container component-content">
+    <h1 style="text-align: center;">Meus Mundos</h1>
+    <div class="row">
+        <div class="col-md-4 col-12">
+            <div class="card m-2" (click)="entrarNoCurso('teste')">
+                <div class="card-header"
+                    style="background-image: url(https://i9acao.com.br/wp-content/uploads/2022/03/4-SAIB1.png); background-repeat: no-repeat; background-position: center; background-size: cover; height: 5rem;">
+                </div>
+                <div class="card-body p-2 d-flex flex-column">
+                    <span>
+                        <strong style="font-size: larger;">
+                            Teste
+                        </strong>
+                        - Teste
+                    </span>
+                    Testando tudo isso
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+</div>
