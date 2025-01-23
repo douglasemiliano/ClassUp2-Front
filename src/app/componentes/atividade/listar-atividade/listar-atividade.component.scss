@@ -2,6 +2,29 @@
     max-width: 600px;
     margin: 0 auto;
   }
+
+  .item-circle-done {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+    border: 7px solid gray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    margin-bottom: 20px;
+  
+    .item-image {
+      width: 8.8rem;
+      height: 8.8rem;
+      object-fit: cover;
+      border-radius: 50%;
+      -webkit-filter: grayscale(100%);
+      filter: grayscale(100%);
+      filter: gray; /* IE */
+    }
+  }
+
   
   .item-circle {
     width: 10rem;
@@ -19,6 +42,7 @@
       height: 8.8rem;
       object-fit: cover;
       border-radius: 50%;
+
     }
   }
   

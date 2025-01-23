@@ -2,11 +2,15 @@ import { Component, inject } from '@angular/core';
 import { AtividadeService } from '../../../services/atividade.service';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../../../environments/environment';
+import {MatIconModule} from '@angular/material/icon';
+import {MatTabsModule} from '@angular/material/tabs';
+import { AuthGoogleService } from '../../../services/auth/auth-google.service';
 
 @Component({
   selector: 'app-listar-atividade',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatTabsModule, MatIconModule],
   templateUrl: './listar-atividade.component.html',
   styleUrl: './listar-atividade.component.scss'
 })
@@ -15,6 +19,8 @@ export class ListarAtividadeComponent {
   curso: any
 
   atividades: any[] = [];
+
+  imagem: string = environment.imagemPadraoAtividade;
 
   items = [
     {
@@ -35,6 +41,10 @@ export class ListarAtividadeComponent {
 
   private route = inject(ActivatedRoute);
 
+  private authService = inject(AuthGoogleService);
+
+  profile = this.authService.profile;
+
   constructor(private service: AtividadeService){
     this.getIdRoute();
     this.service.cursoAtual.subscribe({
@@ -46,7 +56,7 @@ export class ListarAtividadeComponent {
   }
 
   listarAtividades(idCurso: string){
-    this.service.listarAtividades(idCurso).subscribe({
+    this.service.listarMinhasAtividades(idCurso, this.authService.getUserId()!).subscribe({
       next: (data: any) => {
         this.atividades = data;
         console.log(data);
@@ -62,7 +72,9 @@ export class ListarAtividadeComponent {
   }
 
   goToClassroom(link: string){
-    window.open(link, "_blank");
+    if (typeof window !== "undefined") {
+      window.open(link, "_blank");
+   }
   }
 
 }

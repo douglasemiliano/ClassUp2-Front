@@ -30,14 +30,21 @@ getHeader(): HttpHeaders{
 }
 
 
-listarCursos(): Observable<any> {
+listarCursos(idProprietario: string): Observable<any> {
     const headers = this.getHeader();
-    return this.http.get<Atividade>(`${environment.apiUrl}/classroom/courses`, {headers});
+    return this.http.get<Atividade>(`${environment.apiUrl}/curso`, {headers});
   }
 
   listarAtividades(cursoId: string): Observable<any> {
     const headers = this.getHeader();
-    return this.http.get<Atividade>(`${environment.apiUrl}/classroom/coursework/${cursoId}`, {headers});
+    return this.http.get<Atividade>(`${environment.apiUrl}/atividade/${cursoId}`, {headers});
+  }
+
+  listarMinhasAtividades(cursoId: string, userId: string): Observable<any> {
+    const headers = this.getHeader();
+    console.log(userId);
+    
+    return this.http.get<Atividade>(`${environment.apiUrl}/classroom/atividade/${cursoId}/${userId}`, {headers});
   }
 
   login(){

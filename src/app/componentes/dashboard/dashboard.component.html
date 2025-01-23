@@ -1,20 +1,22 @@
 
-<div class="component-content profile-container">
-  <div class="profile-header">
-    <img [src]="profile().picture" alt="profile" class="profile-picture" />
-    <h2>{{ profile().name }}</h2>
-    <p class="email">{{ profile().email }}</p>
+@if(profile()){
+  <div class="component-content profile-container">
+    <div class="profile-header">
+      <img [src]="profile().picture" alt="profile" class="profile-picture" />
+      <h2>{{ profile().name }}</h2>
+      <p class="email">{{ profile().email }}</p>
+    </div>
+  
+    <div class="profile-details">
+      <h3>Detalhes do Perfil</h3>
+      <ul>
+        <li><strong>Nome:</strong> {{ profile().name }}</li>
+        <li><strong>E-mail verificado:</strong> {{ profile().email_verified ? 'Sim' : 'Não' }}</li>
+        <li><strong>ID:</strong> {{ profile().sub }}</li>
+      </ul>
+    </div>
   </div>
-
-  <div class="profile-details">
-    <h3>Detalhes do Perfil</h3>
-    <ul>
-      <li><strong>Nome:</strong> {{ profile().name }}</li>
-      <li><strong>E-mail verificado:</strong> {{ profile().email_verified ? 'Sim' : 'Não' }}</li>
-      <li><strong>ID:</strong> {{ profile().sub }}</li>
-    </ul>
-  </div>
-</div>
+}
 <div class="container d-flex justify-content-center">
   <button mat-raised-button color="primary" (click)="logOut()">
     <mat-icon>

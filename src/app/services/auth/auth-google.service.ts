@@ -27,6 +27,7 @@ export class AuthGoogleService {
         this.profile.set(this.oAuthService.getIdentityClaims());
         this.token.set(this.oAuthService.getAccessToken());
         localStorage.setItem("accessToken", this.oAuthService.getAccessToken());
+        localStorage.setItem("userId", this.oAuthService.getIdentityClaims()['sub'])
       }
     });
   }
@@ -47,5 +48,9 @@ export class AuthGoogleService {
   
   getAccessToken() {
    return localStorage.getItem("accessToken") ? localStorage.getItem("accessToken") : null;
+  }
+
+  getUserId(){
+    return localStorage.getItem("userId") ? localStorage.getItem("userId") : null;
   }
 }

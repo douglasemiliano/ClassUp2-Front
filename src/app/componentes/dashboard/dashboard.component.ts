@@ -31,8 +31,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.profile());
-    
-      // this.router.navigate(['cursos']);
   }
 
   logOut() {

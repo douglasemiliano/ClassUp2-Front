@@ -27,7 +27,7 @@ export class AppComponent implements OnInit{
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.activeButton = this.router.url.replace('/', '');
-        console.log(this.activeButton);
+        console.log("aq", this.activeButton);
         
       }
     });
