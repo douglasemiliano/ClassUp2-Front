@@ -24,7 +24,7 @@ export class ListarCursoComponent implements AfterViewInit{
   constructor(private service: AtividadeService, private router: Router, private route: ActivatedRoute){
 
   }
-  ngAfterViewInit(): void {
+  ngAfterViewInit(): void {    
     if(this.profile()){
       this.service.listarCursos(this.profile().sub).subscribe({
         next: (data: any) => {
@@ -40,7 +40,7 @@ export class ListarCursoComponent implements AfterViewInit{
   }
 
   entrarNoCurso(curso: any){
-    // this.service.setCursoAtual(curso);
+    this.service.setCursoAtual(curso);
     this.router.navigate(["atividades", curso.id]);
   }
 

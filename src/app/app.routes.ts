@@ -10,7 +10,7 @@ import { CallbackComponent } from './componentes/auth/callback/callback.componen
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'criar-atividade', component: AtividadeFormComponent },
-  { path: '', redirectTo: 'cursos', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'cursos', component: ListarCursoComponent},
   { path: 'atividades/:id', component: ListarAtividadeComponent},
   { path: 'callback', component: CallbackComponent },

@@ -31,6 +31,13 @@ export class AppComponent implements OnInit{
         
       }
     });
+
+    // if (typeof localStorage !== "undefined") {
+    //   if(localStorage.getItem("accessToken")) { 
+    //     this.goToCursos();
+    //   }
+      
+    // }
   }
 
   goToCursos() {

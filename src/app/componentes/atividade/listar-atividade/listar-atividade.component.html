@@ -1,56 +1,100 @@
-<div class="container text-center" style="height: 100vh; padding-top: 5rem;">
-  <mat-tab-group>
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <img src="https://imgur.com/wZtEFJE.png" alt="Mapa" style="width: 3rem;">
-      </ng-template>
-      <div class="container mt-4" style="height: 100vh;">
-        <h1>
-          <strong> Mapa dos Desafios {{ curso ? curso.nome : "" }} </strong>
-        </h1>
-        <h4>Disciplina teste</h4>
-        <div class="row mt-4">
-          <!-- Primeiro item (sozinho no topo) -->
-          <div class="col-12 d-flex flex-column justify-content-center align-items-center cursor-pointer" *ngIf="atividades.length > 0" (click)="goToClassroom(atividades[0].alternateLink)">
-            <div [class]="atividades[0].state !== 'CREATED' ? 'item-circle-done': 'item-circle'" class="item-circle">
-              <img [src]="atividades[0].imagem ? atividades[0].imagem: imagem" alt="{{atividades[0].title}}" class="item-image" />
-            </div>
-            <h5 style="margin-top: -1rem">{{ atividades[0].title }}</h5>
-          </div>
-        </div>
-      
-        <!-- Demais itens organizados em pares -->
-        <div class="row mt-2 d-flex justify-content-center">
-      
-          @for (atividade of atividades.slice(1); let i = $index; track atividade) {
-            <div class="col-6 d-flex justify-content-center flex-column align-items-center cursor-pointer" (click)="goToClassroom(atividade.alternateLink)">
-              <div [class]="atividade.state !== 'CREATED' ? 'item-circle-done': 'item-circle'">
-                <img [src]="atividade.imagem ? atividade.imagem : imagem" alt="{{ atividade.title }}" class="item-image"/>
+@if (atividades) {
+  <div class="container text-center" style="height: 100vh; margin-top: 5rem;">
+    <mat-tab-group>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <img src="https://imgur.com/wZtEFJE.png" alt="Mapa" style="width: 3rem;">
+        </ng-template>
+        @if (this.IsMyCourse) {
+          <div class="container mt-4 professor" style="height: 100vh;">
+            <h1>
+              <strong> Mapa dos Desafios {{ curso ? curso.nome : "" }} </strong>
+            </h1>
+            <h4>Disciplina teste</h4>
+            <div class="row mt-4">
+              <!-- Primeiro item (sozinho no topo) -->
+              <div class="col-12 d-flex flex-column justify-content-center align-items-center cursor-pointer" *ngIf="atividades.length > 0" (click)="goToClassroom(atividades[0].alternateLink)">
+                <div class="item-circle">
+                  <img [src]="atividades[0].imagem ? atividades[0].imagem: imagem" alt="{{atividades[0].title}}" class="item-image" />
+                </div>
+                <h5 style="margin-top: -1rem">{{ atividades[0].title }}</h5>
               </div>
-              <h5 style="margin-top: -1rem">{{ atividade.title }}</h5>
             </div>
-          }
-        </div>
-      
-        <!-- Botão flutuante -->
-        <button class="btn-floating">
-          <i class="material-icons">add</i>
-        </button>
+          
+            <!-- Demais itens organizados em pares -->
+            <div class="row mt-2 d-flex justify-content-center">
+          
+              @for (atividade of atividades.slice(1); let i = $index; track atividade) {
+                <div class="col-6 d-flex justify-content-center flex-column align-items-center cursor-pointer" (click)="goToClassroom(atividade.alternateLink)">
+                  <div class="item-circle">
+                    <img [src]="atividade.imagem ? atividade.imagem : imagem" alt="{{ atividade.title }}" class="item-image"/>
+                  </div>
+                  <h5 style="margin-top: -1rem">{{ atividade.title }}</h5>
+                </div>
+              }
+            </div>
+          
+            <!-- Botão flutuante -->
+            <button class="btn-floating">
+              <i class="material-icons">add</i>
+            </button>
+    
+          </div>
+        } @else {
 
-      </div>
-
-    </mat-tab>
+          <div class="container mt-4" style="height: 100vh;">
+            <h1>
+              <strong> Mapa dos Desafios {{ curso ? curso.nome : "" }} </strong>
+            </h1>
+            <h4>Disciplina teste</h4>
+            <div class="row mt-4">
+              <!-- Primeiro item (sozinho no topo) -->
+              <div class="col-12 d-flex flex-column justify-content-center align-items-center cursor-pointer animar" 
+              [style.animation-delay]="'0.1s'" *ngIf="atividades.length > 0" (click)="goToClassroom(atividades[0].alternateLink)">
+                <div [class]="atividades[0].state !== 'CREATED' ? 'item-circle-done': 'item-circle'" >
+                  <img [src]="atividades[0].imagem ? atividades[0].imagem: imagem" alt="{{atividades[0].title}}" class="item-image" />
+                  <em class="done-icon material-icons">check_circle</em>
+                </div>
+                <h5 style="margin-top: -1rem">{{ atividades[0].title }}</h5>
+              </div>
+            </div>
+          
+            <!-- Demais itens organizados em pares -->
+            <div class="row mt-2 d-flex justify-content-center">
+          
+              @for (atividade of atividades.slice(1); let i = $index; track atividade) {
+                <div class="col-6 d-flex justify-content-center flex-column align-items-center cursor-pointer animar" (click)="goToClassroom(atividade.alternateLink)"
+                [style.animation-delay]="(i * 0.3) + 's'">
+                  <div [class]="atividade.state !== 'CREATED' ? 'item-circle-done': 'item-circle'">
+                    <img [src]="atividade.imagem ? atividade.imagem : imagem" alt="{{ atividade.title }}" class="item-image"/>
+                    <em class="done-icon material-icons">check_circle</em>
+                  </div>
+                  <h5 style="margin-top: -1rem">{{ atividade.title }}</h5>
+                </div>
+              }
+            </div>
+    
+          </div>
+        }
   
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <img src="https://i.imgur.com/TRTDUdI.png" alt="Mapa" style="width: 3rem;">
-      </ng-template>
-      Pessoas
-    </mat-tab>
+      </mat-tab>
+    
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <img src="https://i.imgur.com/TRTDUdI.png" alt="Mapa" style="width: 3rem;">
+        </ng-template>
+        Pessoas
+      </mat-tab>
+    
   
-
-  </mat-tab-group>
+    </mat-tab-group>
+    
   
-
-  
-</div>
+    
+  </div>
+}
+@else {
+  <div class="container d-flex align-items-center justify-content-center" style="height: 95vh;">
+      <iframe src="https://lottie.host/embed/0cd806cd-92f1-48a7-8da1-e8bae69c557e/XVNrC79h4w.lottie"></iframe>
+  </div>
+}

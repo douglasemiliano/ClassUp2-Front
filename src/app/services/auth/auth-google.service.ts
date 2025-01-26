@@ -11,6 +11,7 @@ export class AuthGoogleService {
   private oAuthService = inject(OAuthService);
   private router = inject(Router);
   profile = signal<any>(null);
+  idUser = signal<any>(null);
   private token = signal<any>(null);
 
   constructor() {
@@ -18,18 +19,31 @@ export class AuthGoogleService {
   }
   
   initConfiguration() {
-    this.oAuthService.configure(authConfig);
-    this.oAuthService.setupAutomaticSilentRefresh();
-    console.log(this.oAuthService.getGrantedScopes());
-    
-    this.oAuthService.loadDiscoveryDocumentAndTryLogin().then(() => {
-      if (this.oAuthService.hasValidIdToken()) {
-        this.profile.set(this.oAuthService.getIdentityClaims());
-        this.token.set(this.oAuthService.getAccessToken());
-        localStorage.setItem("accessToken", this.oAuthService.getAccessToken());
-        localStorage.setItem("userId", this.oAuthService.getIdentityClaims()['sub'])
+
+    if (typeof localStorage !== "undefined") {
+      
+      if(localStorage.getItem("profile")) {
+        this.profile.set(JSON.parse(localStorage.getItem("profile")!))
+      } else {
+        this.oAuthService.configure(authConfig);
+        this.oAuthService.setupAutomaticSilentRefresh();
+        this.oAuthService.loadDiscoveryDocumentAndTryLogin().then(() => {
+          if (this.oAuthService.hasValidIdToken()) {
+            this.profile.set(this.oAuthService.getIdentityClaims());
+            this.token.set(this.oAuthService.getAccessToken());
+            this.idUser.set(this.oAuthService.getIdentityClaims()['sub']);
+            localStorage.setItem("accessToken", this.oAuthService.getAccessToken());
+            localStorage.setItem("userId", this.oAuthService.getIdentityClaims()['sub'])
+            localStorage.setItem("profile", JSON.stringify(this.oAuthService.getIdentityClaims()));
+          }
+        });
+
       }
-    });
+      
+   }
+    
+    
+
   }
 
   login() {
@@ -40,17 +54,28 @@ export class AuthGoogleService {
     this.oAuthService.revokeTokenAndLogout();
     this.oAuthService.logOut();
     this.profile.set(null);
+    window.localStorage.clear();
   }
   
   getProfile() {
     return this.profile();
   }
+
+  isTokenValid(): boolean {
+    return this.oAuthService.hasValidAccessToken();
+  }
   
   getAccessToken() {
-   return localStorage.getItem("accessToken") ? localStorage.getItem("accessToken") : null;
+    if (typeof localStorage !== "undefined"){
+      return localStorage.getItem("accessToken") ? localStorage.getItem("accessToken") : null;
+    } 
+    return null;
   }
 
   getUserId(){
-    return localStorage.getItem("userId") ? localStorage.getItem("userId") : null;
+    if (typeof localStorage !== "undefined") {
+      return localStorage.getItem("userId") ? localStorage.getItem("userId") : null;
+    }
+    return null;
   }
 }

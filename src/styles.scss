@@ -1,9 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Chewy&display=swap');
 :root{
-    --primary-color: #5E17EB;
+    --primary-color: #9b59b6;
+    --primary-color-darker: purple;
     --white: #fff;
     --gray: #808080;
     --font-family: Roboto, Arial, Helvetica, sans-serif;
+    --secondary-color: #ff9800;
 }
 
 html, body { height: 100%; }
