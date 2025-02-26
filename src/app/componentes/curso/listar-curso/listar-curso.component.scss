@@ -1,0 +1,15 @@
+.header {
+    width: 100%; /* Ocupa toda a largura da tela */
+    background-color:  #F9FBFF ; /* Fundo branco para maior contraste */
+    padding: 1.5rem;
+    text-align: left;
+    // box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra para destacar */
+    z-index: 1000; /* Garante que o cabeçalho fique acima de outros elementos */
+    // margin-top: 8rem;
+    display: flex;
+    justify-content: center !important;
+
+    & input {
+      width: 50%;
+    }
+  }

@@ -2,7 +2,6 @@ import { Injectable, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { authConfig } from './auth.config';
-import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -17,65 +16,60 @@ export class AuthGoogleService {
   constructor() {
     this.initConfiguration();
   }
-  
-  initConfiguration() {
 
-    if (typeof localStorage !== "undefined") {
-      
-      if(localStorage.getItem("profile")) {
-        this.profile.set(JSON.parse(localStorage.getItem("profile")!))
-      } else {
-        this.oAuthService.configure(authConfig);
-        this.oAuthService.setupAutomaticSilentRefresh();
-        this.oAuthService.loadDiscoveryDocumentAndTryLogin().then(() => {
-          if (this.oAuthService.hasValidIdToken()) {
-            this.profile.set(this.oAuthService.getIdentityClaims());
-            this.token.set(this.oAuthService.getAccessToken());
-            this.idUser.set(this.oAuthService.getIdentityClaims()['sub']);
-            localStorage.setItem("accessToken", this.oAuthService.getAccessToken());
-            localStorage.setItem("userId", this.oAuthService.getIdentityClaims()['sub'])
-            localStorage.setItem("profile", JSON.stringify(this.oAuthService.getIdentityClaims()));
-          }
-        });
+  private async initConfiguration() {
+    this.oAuthService.configure(authConfig);
+    this.oAuthService.setupAutomaticSilentRefresh();
 
+    try {
+      await this.oAuthService.loadDiscoveryDocumentAndTryLogin();
+      if (this.oAuthService.hasValidAccessToken()) {
+        this.updateUserData();
       }
-      
-   }
-    
-    
-
+    } catch (error) {
+      console.error('Erro ao carregar o login:', error);
+    }
   }
 
   login() {
-    this.oAuthService.initImplicitFlow();
+    this.oAuthService.initCodeFlow(); // Usando Code Flow com PKCE
   }
+  
 
   logout() {
     this.oAuthService.revokeTokenAndLogout();
     this.oAuthService.logOut();
     this.profile.set(null);
-    window.localStorage.clear();
   }
-  
-  getProfile() {
-    return this.profile();
+
+  private updateUserData() {
+    const claims = this.oAuthService.getIdentityClaims();
+    console.log(claims);
+    
+    if (claims) {
+      this.profile.set(claims);
+      this.idUser.set(claims['sub']);
+      this.token.set(this.oAuthService.getAccessToken());
+      localStorage.setItem("accessToken", this.oAuthService.getAccessToken());
+      localStorage.setItem("userId", this.oAuthService.getIdentityClaims()['sub'])
+      localStorage.setItem("profile", JSON.stringify(this.oAuthService.getIdentityClaims()));
+
+    }
   }
 
   isTokenValid(): boolean {
     return this.oAuthService.hasValidAccessToken();
   }
-  
-  getAccessToken() {
-    if (typeof localStorage !== "undefined"){
-      return localStorage.getItem("accessToken") ? localStorage.getItem("accessToken") : null;
-    } 
-    return null;
+
+  getAccessToken(): string | null {
+    return this.oAuthService.getAccessToken();
   }
 
-  getUserId(){
-    if (typeof localStorage !== "undefined") {
-      return localStorage.getItem("userId") ? localStorage.getItem("userId") : null;
-    }
-    return null;
+  getUserId(): string | null {
+    return this.idUser();
+  }
+
+  getProfile() {
+    return this.profile();
   }
 }

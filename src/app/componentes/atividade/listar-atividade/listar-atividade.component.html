@@ -1,79 +1,85 @@
 @if (atividades) {
-  <div class="container text-center" style="height: 100vh; margin-top: 5rem;">
+  <div class="container text-center" style="height: 100vh; margin-top: 8rem;">
     <mat-tab-group>
       <mat-tab>
         <ng-template mat-tab-label>
           <img src="https://imgur.com/wZtEFJE.png" alt="Mapa" style="width: 3rem;">
         </ng-template>
-        @if (this.IsMyCourse) {
-          <div class="container mt-4 professor" style="height: 100vh;">
-            <h1>
-              <strong> Mapa dos Desafios {{ curso ? curso.nome : "" }} </strong>
-            </h1>
-            <h4>Disciplina teste</h4>
-            <div class="row mt-4">
-              <!-- Primeiro item (sozinho no topo) -->
-              <div class="col-12 d-flex flex-column justify-content-center align-items-center cursor-pointer" *ngIf="atividades.length > 0" (click)="goToClassroom(atividades[0].alternateLink)">
-                <div class="item-circle">
-                  <img [src]="atividades[0].imagem ? atividades[0].imagem: imagem" alt="{{atividades[0].title}}" class="item-image" />
-                </div>
-                <h5 style="margin-top: -1rem">{{ atividades[0].title }}</h5>
-              </div>
-            </div>
-          
-            <!-- Demais itens organizados em pares -->
-            <div class="row mt-2 d-flex justify-content-center">
-          
-              @for (atividade of atividades.slice(1); let i = $index; track atividade) {
-                <div class="col-6 d-flex justify-content-center flex-column align-items-center cursor-pointer" (click)="goToClassroom(atividade.alternateLink)">
+        @if (atividades.length > 0) {
+          @if (this.IsMyCourse) {
+            <div class="container mt-4 professor" style="height: 100vh;">
+              <h1>
+                <strong> Mapa dos Desafios {{ curso ? curso.nome : "" }} </strong>
+              </h1>
+              <h4>Disciplina teste</h4>
+              <div class="row mt-4">
+                <!-- Primeiro item (sozinho no topo) -->
+                <div class="col-12 d-flex flex-column justify-content-center align-items-center cursor-pointer" *ngIf="atividades.length > 0" (click)="goToClassroom(atividades[0].alternateLink)">
                   <div class="item-circle">
-                    <img [src]="atividade.imagem ? atividade.imagem : imagem" alt="{{ atividade.title }}" class="item-image"/>
+                    <img [src]="atividades[0].imagem ? atividades[0].imagem: imagem" alt="{{atividades[0].title}}" class="item-image" />
                   </div>
-                  <h5 style="margin-top: -1rem">{{ atividade.title }}</h5>
+                  <h5 style="margin-top: -1rem">{{ atividades[0].title }}</h5>
                 </div>
-              }
-            </div>
-          
-            <!-- Botão flutuante -->
-            <button class="btn-floating">
-              <i class="material-icons">add</i>
-            </button>
-    
-          </div>
-        } @else {
-
-          <div class="container mt-4" style="height: 100vh;">
-            <h1>
-              <strong> Mapa dos Desafios {{ curso ? curso.nome : "" }} </strong>
-            </h1>
-            <h4>Disciplina teste</h4>
-            <div class="row mt-4">
-              <!-- Primeiro item (sozinho no topo) -->
-              <div class="col-12 d-flex flex-column justify-content-center align-items-center cursor-pointer animar" 
-              [style.animation-delay]="'0.1s'" *ngIf="atividades.length > 0" (click)="goToClassroom(atividades[0].alternateLink)">
-                <div [class]="atividades[0].state !== 'CREATED' ? 'item-circle-done': 'item-circle'" >
-                  <img [src]="atividades[0].imagem ? atividades[0].imagem: imagem" alt="{{atividades[0].title}}" class="item-image" />
-                  <em class="done-icon material-icons">check_circle</em>
-                </div>
-                <h5 style="margin-top: -1rem">{{ atividades[0].title }}</h5>
               </div>
+            
+              <!-- Demais itens organizados em pares -->
+              <div class="row mt-2 d-flex justify-content-center">
+            
+                @for (atividade of atividades.slice(1); let i = $index; track atividade) {
+                  <div class="col-6 d-flex justify-content-center flex-column align-items-center cursor-pointer" (click)="goToClassroom(atividade.alternateLink)">
+                    <div class="item-circle">
+                      <img [src]="atividade.imagem ? atividade.imagem : imagem" alt="{{ atividade.title }}" class="item-image"/>
+                    </div>
+                    <h5 style="margin-top: -1rem">{{ atividade.title }}</h5>
+                  </div>
+                }
+              </div>
+            
+              <!-- Botão flutuante -->
+              <button class="btn-floating">
+                <i class="material-icons">add</i>
+              </button>
+      
             </div>
-          
-            <!-- Demais itens organizados em pares -->
-            <div class="row mt-2 d-flex justify-content-center">
-          
-              @for (atividade of atividades.slice(1); let i = $index; track atividade) {
-                <div class="col-6 d-flex justify-content-center flex-column align-items-center cursor-pointer animar" (click)="goToClassroom(atividade.alternateLink)"
-                [style.animation-delay]="(i * 0.3) + 's'">
-                  <div [class]="atividade.state !== 'CREATED' ? 'item-circle-done': 'item-circle'">
-                    <img [src]="atividade.imagem ? atividade.imagem : imagem" alt="{{ atividade.title }}" class="item-image"/>
+          } @else {
+  
+            <div class="container mt-4" style="height: 100vh;">
+              <h1>
+                <strong> Mapa dos Desafios {{ curso ? curso.nome : "" }} </strong>
+              </h1>
+              <h4>Disciplina teste</h4>
+              <div class="row mt-4">
+                <!-- Primeiro item (sozinho no topo) -->
+                <div class="col-12 d-flex flex-column justify-content-center align-items-center cursor-pointer animar" 
+                [style.animation-delay]="'0.1s'" *ngIf="atividades.length > 0" (click)="goToClassroom(atividades[0].alternateLink)">
+                  <div [class]="atividades[0].state !== 'CREATED'  && atividades[0].state !== 'NEW' && atividades[0].state !== 'RECLAIMED_BY_STUDENT' ? 'item-circle-done': 'item-circle'" >
+                    <img [src]="atividades[0].imagem ? atividades[0].imagem: imagem" alt="{{atividades[0].title}}" class="item-image" />
                     <em class="done-icon material-icons">check_circle</em>
                   </div>
-                  <h5 style="margin-top: -1rem">{{ atividade.title }}</h5>
+                  <h5 style="margin-top: -1rem">{{ atividades[0].title }}</h5>
                 </div>
-              }
+              </div>
+            
+              <!-- Demais itens organizados em pares -->
+              <div class="row mt-2 d-flex justify-content-center">
+            
+                @for (atividade of atividades.slice(1); let i = $index; track atividade) {
+                  <div class="col-6 d-flex justify-content-center flex-column align-items-center cursor-pointer animar" (click)="goToClassroom(atividade.alternateLink)"
+                  [style.animation-delay]="(i * 0.3) + 's'">
+                    <div [class]="atividade.state !== 'CREATED' && atividade.state !== 'NEW' ? 'item-circle-done': 'item-circle'">
+                      <img [src]="atividade.imagem ? atividade.imagem : imagem" alt="{{ atividade.title }}" class="item-image"/>
+                      <em class="done-icon material-icons">check_circle</em>
+                    </div>
+                    <h5 style="margin-top: -1rem">{{ atividade.title }}</h5>
+                  </div>
+                }
+              </div>
+      
             </div>
-    
+          }
+        } @else {
+          <div class="container mt-4">
+            Nenhum desafio encontrado!
           </div>
         }
   
@@ -83,7 +89,22 @@
         <ng-template mat-tab-label>
           <img src="https://i.imgur.com/TRTDUdI.png" alt="Mapa" style="width: 3rem;">
         </ng-template>
-        Pessoas
+        <div class="container mt-4" style="height: 100vh; margin-bottom: 35rem;">
+          <h1>
+            <strong> Pessoas </strong>
+          </h1>
+          <div class="row">
+            @for (aluno of cursoAtual.alunos; let i = $index; track aluno.id) {
+              <div class="col-3 d-flex justify-content-center flex-column align-items-center cursor-pointer animar"
+              [style.animation-delay]="(i * 0.3) + 's'">
+                <div class="person-circle">
+                  <img [src]="aluno.foto ? 'https://'+aluno.foto : imagem" alt="{{ aluno.nome }}" class="item-image"/>
+                </div>
+                <p style="margin-top: -1rem;">{{ aluno.nome }}</p>
+              </div>
+            }
+          </div>
+        </div>
       </mat-tab>
     
   

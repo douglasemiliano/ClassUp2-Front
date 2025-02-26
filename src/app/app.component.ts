@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthGoogleService } from './services/auth/auth-google.service';
+import { AtividadeService } from './services/atividade.service';
 
 
 @Component({
@@ -18,9 +19,10 @@ export class AppComponent implements OnInit{
   private router = inject(Router)
   private authService = inject(AuthGoogleService)
   private route = inject(ActivatedRoute);
+  private service = inject(AtividadeService)
   activeButton: string = 'home';
-
-
+  
+  profile = this.authService.profile;
   title = 'ClassUp2-frontend';
 
   ngOnInit() {

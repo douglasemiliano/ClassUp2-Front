@@ -1,5 +1,8 @@
 @if (this.cursos.length > 0) {
-        <div class="container" style="height: 100vh; padding-top: 5rem;">
+    <div class="header">
+        <input type="text" class="form-control">    
+    </div>
+    <div class="container" style="height: 100vh;">
             <div class="row">
             <h1 style="text-align: center;">Meus Mundos</h1>
             @for (curso of this.cursos; track curso.id) {
@@ -16,6 +19,8 @@
                                     - {{curso.section}}
                                 </span>
                                 {{curso.descricao}}
+                                <br>
+                                {{curso.codigoAcesso}}
             
                             </div>
                         </div>

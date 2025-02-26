@@ -19,13 +19,15 @@ cursoAtual: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
 curso: WritableSignal<any> = signal<any>(null);
 
+perfil: WritableSignal<any> = signal<any>(null);
+
 constructor(private http: HttpClient) {}
 
 criarAtividade(atividade: Atividade): Observable<Atividade> {
   return this.http.post<Atividade>(environment.apiUrl, atividade);
 }
 
-getHeader(): HttpHeaders{
+getHeader(): HttpHeaders{  
   return new HttpHeaders({
     accessToken: `${this.authService.getAccessToken()}`,
   });
@@ -34,7 +36,7 @@ getHeader(): HttpHeaders{
 
 listarCursos(idProprietario: string): Observable<any> {
     const headers = this.getHeader();
-    return this.http.get<Atividade>(`${environment.apiUrl}/curso`, {headers});
+    return this.http.get<Atividade>(`${environment.apiUrl}/curso/${idProprietario}`, {headers});
   }
 
   listarAtividades(cursoId: string): Observable<any> {
@@ -47,15 +49,20 @@ listarCursos(idProprietario: string): Observable<any> {
     return this.http.get<Atividade>(`${environment.apiUrl}/classroom/fullCoursework/${cursoId}`, {headers});
   }
 
-  listarMinhasAtividades(cursoId: string, userId: string): Observable<any> {
+  listarAtividadesAluno(cursoId: string, userId: string): Observable<any> {
     const headers = this.getHeader();
-    console.log(userId);
     
     return this.http.get<Atividade>(`${environment.apiUrl}/classroom/atividade/${cursoId}/${userId}`, {headers});
   }
 
-  login(){
-    return this.http.get(`${environment.apiUrl}/auth-url`)
+  login(): Observable<any>{
+    const headers = this.getHeader();
+    console.log(this.getHeader());
+    return this.http.post(`${environment.apiUrl}/usuario/login`, {}, {headers})
+  }
+
+  setPerfil(perfil: any) {
+    this.perfil.set(perfil);
   }
 
   setCursoAtual(cursoId: any){

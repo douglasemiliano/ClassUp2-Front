@@ -1,13 +1,19 @@
+
 @if (activeButton !== 'login') {
-  <nav class="navbar navbar-light fixed-top bg-light px-2 d-flex justify-content-center" style="background:linear-gradient(to right, #6a1b9a, #8e44ad) !important;  margin-bottom: 4rem !important;" aria-label="top">
-    <a class="navbar-brand d-flex align-items-center justify-content-center" style="color: white;">
-      <h1>ClassUp</h1>
-      <!-- <img src="assets/logo.png" height="40" class="d-inline-block align-top" alt=""> -->
-    </a>
-  </nav>
+  <div class="header d-flex justify-content-center" >
+    <div style="color: var(--primary-color-darker);">
+      <h1>Olá, {{profile() ? profile().name : ''}}</h1>
+      <p>Comece a explorar os seus mundos!</p>
+    </div>
+    <button class="btn" (click)="goToPerfil()">
+
+        <mat-icon class="material-icons-outlined">person</mat-icon>
+    </button>
+  </div>
 }
 
-<div class="">
+
+<div>
     <router-outlet></router-outlet>
 </div>
 

@@ -1,28 +1,39 @@
+@if(perfil()){
+  <div class="perfil-container" style="margin-top: 8rem;">
+    <div class="main">
+      <div class="perfil-info">
+        <img [src]="perfil().foto" alt="Foto de {{ perfil().nome }}" class="foto-perfil"
+             (error)="perfil().foto = 'assets/default-avatar.png'">
+        <h2>{{ perfil().nome }}</h2>
+        <p>{{ perfil().email }}</p>
+      </div>
+    
+      <div class="badges-container" *ngIf="perfil().badges && perfil().badges.length > 0">
+        <h3>Conquistas</h3>
+        <div class="badges-list">
+          <div *ngFor="let badge of perfil().badges" class="badge" [title]="badge.nome">
+            🏅
+            <span class="badge-tooltip">{{ badge.nome }}</span>
+          </div>
+        </div>
+      </div>
 
-@if(profile()){
-  <div class="component-content profile-container">
-    <div class="profile-header">
-      <img [src]="profile().picture" alt="profile" class="profile-picture" />
-      <h2>{{ profile().name }}</h2>
-      <p class="email">{{ profile().email }}</p>
     </div>
-  
-    <div class="profile-details">
-      <h3>Detalhes do Perfil</h3>
-      <ul>
-        <li><strong>Nome:</strong> {{ profile().name }}</li>
-        <li><strong>E-mail verificado:</strong> {{ profile().email_verified ? 'Sim' : 'Não' }}</li>
-        <li><strong>ID:</strong> {{ profile().sub }}</li>
-      </ul>
+
+    <div class="container d-flex justify-content-center">
+      <button mat-raised-button color="primary" (click)="logOut()">
+        <mat-icon>
+          logout
+        </mat-icon>
+        Sair
+      </button>
     </div>
+    
   </div>
+  
 }
-<div class="container d-flex justify-content-center">
-  <button mat-raised-button color="primary" (click)="logOut()">
-    <mat-icon>
-      logout
-    </mat-icon>
-    Sair
-  </button>
+@else {
+  <div class="container d-flex align-items-center justify-content-center" style="height: 95vh;">
+    <iframe src="https://lottie.host/embed/0cd806cd-92f1-48a7-8da1-e8bae69c557e/XVNrC79h4w.lottie"></iframe>
 </div>
-
+}

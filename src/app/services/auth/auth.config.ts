@@ -5,7 +5,7 @@ import { Oauth2Scopes } from '../../utils/constants/oauth2-scopes.constants';
 export const authConfig: AuthConfig = {
   issuer: 'https://accounts.google.com',
   strictDiscoveryDocumentValidation: false,
-  clientId: '',
+  clientId: '77186774552-da42u8o6391arqf1t9u5cn4g8icdbbn2.apps.googleusercontent.com',
   redirectUri: 'http://localhost:4200/callback',
   scope: "openid profile email" + " " + 
   ClassroomScopes.CLASSROOM_COURSES + " " + 

@@ -28,8 +28,10 @@ export class ListarCursoComponent implements AfterViewInit{
     if(this.profile()){
       this.service.listarCursos(this.profile().sub).subscribe({
         next: (data: any) => {
-          this.cursos = data;
+          this.cursos = data.cursosFacoParte.length > 0 ? data.cursosFacoParte : data.meusCursos;
           console.log(data);
+          console.log(this.cursos);
+          
           
         }, error: (erro: any) => {
           console.log(erro);
